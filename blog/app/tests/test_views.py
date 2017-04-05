@@ -61,6 +61,7 @@ async def test_index(test_client_auth):
 
     data = await resp.content.read()
     data = data.decode('utf-8')
+    assert '- Index' in data
     assert 'No posts.' in data
     assert 'Newer Posts' not in data
     assert 'Older Posts' not in data
@@ -142,6 +143,7 @@ async def test_page_has_posts_from_second(
 
     data = await resp.content.read()
     data = data.decode('utf-8')
+    assert '- Page 2 of 2' in data
     assert 'No posts.' not in data
     assert 'Newer Posts' in data
     assert 'Older Posts' not in data
@@ -185,6 +187,7 @@ async def test_blog_post(test_client_auth, fixt_blog_posts):
 
     data = await resp.content.read()
     data = data.decode('utf-8')
+    assert '- Title 1' in data
     assert 'Title 1' in data
     assert 'Sub 1' in data
     assert '01.01.2010 11:11' in data
@@ -263,6 +266,7 @@ async def test_about(test_client_auth):
 
     data = await resp.content.read()
     data = data.decode('utf-8')
+    assert '- About' in data
     assert 'About Me' in data
 
 
@@ -273,6 +277,7 @@ async def test_contact(test_client_auth):
 
     data = await resp.content.read()
     data = data.decode('utf-8')
+    assert '- Contact' in data
     assert 'Contact Me' in data
 
 

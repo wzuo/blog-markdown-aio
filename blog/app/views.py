@@ -139,7 +139,10 @@ def get_post_comments(app, post_slug):
 async def handle_index(request, conn):
     total_pages = get_total_pages()
     posts = get_blog_posts_paginated()
-    return {'posts': posts, 'page': 1, 'total_pages': total_pages}
+    return {
+        'posts': posts, 'page': 1, 'total_pages': total_pages,
+        'title': 'Index'
+    }
 
 
 @template('index.jinja2')
@@ -151,13 +154,16 @@ async def handle_page(request, conn):
         raise web.HTTPNotFound()
 
     posts = get_blog_posts_paginated(page=page)
-    return {'posts': posts, 'page': page, 'total_pages': total_pages}
+    return {
+        'posts': posts, 'page': page, 'total_pages': total_pages,
+        'title': 'Page {} of {}'.format(page, total_pages),
+    }
 
 
 @template('contact.jinja2')
 @require_tinydb_conn
 async def handle_contact(request, conn):
-    return {}
+    return {'title': 'Contact'}
 
 
 @require_tinydb_conn
@@ -185,7 +191,7 @@ async def handle_contact_form(request, conn):
 @template('about.jinja2')
 @require_tinydb_conn
 async def handle_about(request, conn):
-    return {}
+    return {'title': 'About'}
 
 
 @template('blog_post.jinja2')
@@ -199,7 +205,7 @@ async def handle_blog_post(request, conn):
         raise web.HTTPNotFound()
 
     comments = get_post_comments(request.app, post.slug)
-    return {'post': post, 'comments': comments}
+    return {'post': post, 'comments': comments, 'title': post.title}
 
 
 @require_tinydb_conn
