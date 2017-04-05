@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  dev-app:
+    build:
+      context: ./blog
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./blog:/app
+      - pip-cache:/root/.cache
+    ports:
+      - "8000:8000"
+    environment:
+      - TINYDB_DB_NAME=db.json
+    stdin_open: true
+    command: bash -c "pip install -r requirements.txt -r requirements-dev.txt &&
+             gunicorn wsgi:app --bind 0.0.0.0:8000 --worker-class aiohttp.worker.GunicornWebWorker -w 1 --reload"
+
+  app-tests:
+    build:
+      context: ./blog
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./blog:/app
+      - pip-cache:/root/.cache
+    environment:
+      - TINYDB_DB_NAME=db.json
+    stdin_open: true
+    command: bash -c "pip install -r requirements.txt -r requirements-dev.txt &&
+             ptw ./ -- --pep8 -s -rs --color=yes"
+
+volumes:
+  pip-cache:
+    driver: local

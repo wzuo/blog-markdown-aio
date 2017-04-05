@@ -1,0 +1,56 @@
+{% extends "template.jinja2" %}
+
+{% block header %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('/static/img/home-bg.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+          <div class="site-heading">
+            <h1>Clean Blog</h1>
+            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block body %}
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+
+        {% if posts %}
+          {% for post in posts %}
+            <div class="post-preview">
+              <a href="/post/{{ post.slug }}">
+                <h2 class="post-title">
+                  {{ post.title }}
+                </h2>
+                <h3 class="post-subtitle">
+                  {{ post.subtitle }}
+                </h3>
+              </a>
+              <p class="post-meta">Posted by <a href="javascript:void;">{{ post.author }}</a> on {{ post.date|format_date('%d.%m.%Y %H:%M') }}</p>
+            </div>
+            <hr>
+          {% endfor %}
+
+          <!-- Pager -->
+          <div class="clearfix">
+            {% if page > 1 %}
+              <a class="btn btn-secondary float-left" href="/page/{{ page - 1 }}">&larr; Newer Posts</a>
+            {% endif %}
+            {% if page < total_pages %}
+              <a class="btn btn-secondary float-right" href="/page/{{ page + 1}}">Older Posts &rarr;</a>
+            {% endif %}
+          </div>
+        {% else %}
+          <p>No posts.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

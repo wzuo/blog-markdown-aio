@@ -1,0 +1,16 @@
+{% extends "template.jinja2" %}
+
+{% block header %}
+  <header class="masthead error">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+          <div class="site-heading">
+            <h1>Error {{ status }}</h1>
+            <span class="subheading">{{ error }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}

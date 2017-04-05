@@ -1,0 +1,6 @@
+aiohttp
+aiohttp_jinja2
+gunicorn
+tinydb
+jsonschema
+markdown

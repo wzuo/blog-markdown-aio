@@ -1,0 +1,32 @@
+.masthead.error {
+  h1, .subheading {
+    color: #333;
+  }
+}
+
+.comments {
+  .comment {
+    .author {
+      clear: both;
+      font-style: italic;
+      font-size: 0.8em;
+      margin-bottom: 0;
+
+      .date {
+        float: right;
+      }
+    }
+
+    .content {
+      margin-top: 10px;
+    }
+  }
+}
+
+.btn-secondary {
+  cursor: pointer;
+}
+
+.comment-heading {
+  margin-top: 30px;
+}
