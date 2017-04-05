@@ -28,5 +28,8 @@ Just create new file in `posts` directory. It requires a special format, as in e
 ## Removing comments
 It has to be done manually in `db.json`
 
+## Reading content from contact form
+Currently only reading raw records in `db.json` are possible.
+
 ## License
 MIT
