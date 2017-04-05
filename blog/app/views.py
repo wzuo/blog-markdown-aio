@@ -16,9 +16,9 @@ from tinydb import Query
 logger = logging.getLogger(__name__)
 
 
-Post = namedtuple(
-    'Post',
-    ['title', 'subtitle', 'date', 'author', 'slug', 'options', 'content'])
+Post = namedtuple('Post', [
+    'title', 'subtitle', 'date', 'author', 'slug',
+    'options', 'content', 'image'])
 Comment = namedtuple(
     'Comment', ['author', 'date', 'content', 'email', 'post_slug'])
 Contact = namedtuple(
@@ -97,7 +97,7 @@ def get_blog_posts():
         file_path = os.path.join(posts_path, file_)
         with open(file_path) as f:
             file_content = f.readlines()
-            title, subtitle, date, slug, author, options, *content = (
+            title, subtitle, date, slug, image, author, options, *content = (
                 file_content)
             html_content = markdown.markdown('\n'.join(content))
 
@@ -105,13 +105,14 @@ def get_blog_posts():
             subtitle = subtitle.strip('#').strip()
             date = date.strip('#').strip()
             slug = slug.strip('#').strip()
+            image = image.strip('#').strip()
             author = author.strip('#').strip()
             options = options.strip('#').strip()
 
             ret.append(Post(
                 title=title, subtitle=subtitle, date=date, slug=slug,
                 author=author, options=parse_post_options(options),
-                content=html_content))
+                image=image, content=html_content))
 
     def sort_by_date(post):
         x = datetime.strptime(post.date, '%Y-%m-%dT%H:%M:%S')
@@ -168,6 +169,8 @@ async def handle_contact(request, conn):
 
 @require_tinydb_conn
 async def handle_contact_form(request, conn):
+    MAX_LEN = 1000
+
     try:
         data = await request.json()
     except json.JSONDecodeError:
@@ -180,8 +183,10 @@ async def handle_contact_form(request, conn):
         raise web.HTTPBadRequest()
 
     name, email, message = data['name'], data['email'], data['message']
+    if any([True for x in (name, email, message) if len(x) > MAX_LEN]):
+        raise web.HTTPBadRequest()
 
-    date = datetime.strftime(datetime.utcnow(), '%Y-%m-%dT%H:%M:%S')
+    date = datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%M:%S')
     contact = Contact(
         email=email, name=name, message=message, date=date)
     request.app.db.insert(to_tinydb(contact))
@@ -210,6 +215,8 @@ async def handle_blog_post(request, conn):
 
 @require_tinydb_conn
 async def handle_blog_post_comment(request, conn):
+    MAX_LEN = 1000
+
     try:
         data = await request.json()
     except json.JSONDecodeError:
@@ -227,10 +234,12 @@ async def handle_blog_post_comment(request, conn):
     slugs = set([x.slug for x in get_blog_posts()])
     if slug not in slugs:
         raise web.HTTPBadRequest()
+    elif any([True for x in (name, email, message) if len(x) > MAX_LEN]):
+        raise web.HTTPBadRequest()
 
     # TODO: maybe some throttle or spam-limit
 
-    date = datetime.strftime(datetime.utcnow(), '%Y-%m-%dT%H:%M:%S')
+    date = datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%M:%S')
     comment = Comment(
         author=name, date=date, content=message, email=email, post_slug=slug)
     request.app.db.insert(to_tinydb(comment))

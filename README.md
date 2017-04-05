@@ -33,8 +33,9 @@ Just create new file in `posts` directory. It requires a special format, as in e
 * 2nd line: subtitle of post `## subtitle`
 * 3rd line: date of post in format `YYYY-MM-DDTHH:MM:SS` `### 2017-04-05T14:45:00`
 * 4th line: slug of post (visible in browser's address bar) `#### test-post`
-* 5th line: author of post `##### John Doe`
-* 6th line: special options of post. Currently possible option is only `disable_comments`, example: `###### disable_comments`. If no flags, then leave empty row, like that: `######`
+* 5th line: image for background - if not specified, then no image is displayed
+* 6th line: author of post `##### John Doe`
+* 7th line: special options of post. Currently possible option is only `disable_comments`, example: `###### disable_comments`. If no flags, then leave empty row, like that: `######`
 
 
 ## Removing comments

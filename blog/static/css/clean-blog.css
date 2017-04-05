@@ -351,8 +351,10 @@ footer {
   border: 1px solid #0085A1;
   color: white; }
 
-.masthead.error h1, .masthead.error .subheading {
-  color: #333; }
+.masthead {
+  background: #777 !important; }
+  .masthead.error h1, .masthead.error .subheading {
+    color: #333; }
 
 .comments .comment .author {
   clear: both;

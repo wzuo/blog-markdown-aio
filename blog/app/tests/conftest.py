@@ -85,7 +85,15 @@ def fixt_blog_post():
     return Post(
         title='Title 1', subtitle='Sub 1', date='2010-01-01T11:11:00',
         slug='slug-1', author='P', options=parse_post_options(''),
-        content='Test content 1')
+        image='', content='Test content 1')
+
+
+@pytest.fixture
+def fixt_blog_post_image():
+    return Post(
+        title='Title 1', subtitle='Sub 1', date='2010-01-01T11:11:00',
+        slug='slug-1', author='P', options=parse_post_options(''),
+        image='/static/img/test.jpg', content='Test content 1')
 
 
 @pytest.fixture
@@ -94,7 +102,7 @@ def fixt_blog_post_comments_disabled():
         title='Title 1', subtitle='Sub 1', date='2010-01-01T11:11:00',
         slug='slug-1', author='P',
         options=parse_post_options('disable_comments'),
-        content='Test content 1')
+        image='', content='Test content 1')
 
 
 @pytest.fixture
@@ -103,11 +111,11 @@ def fixt_blog_posts():
         Post(
             title='Title 1', subtitle='Sub 1', date='2010-01-01T11:11:00',
             slug='slug-1', author='P', options=parse_post_options(''),
-            content='Test content 1'),
+            image='', content='Test content 1'),
         Post(
             title='Title 2', subtitle='Sub 2', date='2010-01-02T11:11:00',
             slug='slug-2', author='D', options=parse_post_options(''),
-            content='Test content 2'),
+            image='', content='Test content 2'),
     ]
 
 
@@ -117,27 +125,27 @@ def fixt_blog_posts_two_pages():
         Post(
             title='Title 1', subtitle='Sub 1', date='2010-01-01T11:11:00',
             slug='slug-1', author='P', options=parse_post_options(''),
-            content='Test content 1'),
+            image='', content='Test content 1'),
         Post(
             title='Title 2', subtitle='Sub 2', date='2010-01-02T11:11:00',
             slug='slug-2', author='D', options=parse_post_options(''),
-            content='Test content 2'),
+            image='', content='Test content 2'),
         Post(
             title='Title 3', subtitle='Sub 3', date='2010-01-03T11:11:00',
             slug='slug-3', author='E', options=parse_post_options(''),
-            content='Test content 3'),
+            image='', content='Test content 3'),
         Post(
             title='Title 4', subtitle='Sub 4', date='2010-01-04T11:11:00',
             slug='slug-4', author='Q', options=parse_post_options(''),
-            content='Test content 4'),
+            image='', content='Test content 4'),
         Post(
             title='Title 5', subtitle='Sub 5', date='2010-01-05T11:11:00',
             slug='slug-5', author='T', options=parse_post_options(''),
-            content='Test content 5'),
+            image='', content='Test content 5'),
         Post(
             title='Title 6', subtitle='Sub 6', date='2010-01-06T11:11:00',
             slug='slug-6', author='Y', options=parse_post_options(''),
-            content='Test content 6'),
+            image='', content='Test content 6'),
     ]
 
 

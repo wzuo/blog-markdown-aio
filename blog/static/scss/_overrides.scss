@@ -1,6 +1,10 @@
-.masthead.error {
-  h1, .subheading {
-    color: #333;
+.masthead {
+  background: #777 !important;
+
+  &.error {
+    h1, .subheading {
+      color: #333;
+    }
   }
 }
 
