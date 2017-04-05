@@ -1,6 +1,6 @@
 # asyncio aiohttp markdown blog
 
-Used free template from StartBootstrap. Sources included in `static` directory.
+Used free template "Clean Blog" from StartBootstrap. Sources included in `static` directory.
 
 ## Technologies
 Written in Python 3.5 in asynchronous way, using aiohttp framework. Posts are parsed from Markdown format. Comments are saved in TinyDB in `db.json` file.
@@ -13,7 +13,19 @@ Everything is dockerized, so Docker and Docker-Compose are required.
 ## Running
 Go into `static` directory and type in `npm install`. Then go to main directory and type in `docker-compose up -d`. That's all.
 
+To access logs of web server type `docker-compose logs dev-app`
+
 Site should be available on `localhost:8000`.
+
+## Testing
+Just run application as usual. There are two docker containers, one is application, and the second one is testing container with `py.test` preinstalled.
+You can access its logs by typing `docker-compose logs app-tests`. Testing suite is equipped with pytest watch, so it reloads automatically on some changed.
+
+## Contributing
+Please follow PEP-8 rules, and if possible make 100% coverage of new features in unit tests. Do not overengineer the features, KISS.
+
+## Pagination
+Pagination is done every 5 posts, can be changed by changing `PAGE_SIZE` constant.
 
 ## Adding posts
 Just create new file in `posts` directory. It requires a special format, as in example files:
